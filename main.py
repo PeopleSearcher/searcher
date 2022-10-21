@@ -163,8 +163,11 @@ def get_user_photos(user_id, print_urls=False):
     return res
 
 
-def get_user_by_screen_name(screen_name: str):
-    args = {"user_ids": screen_name}
+def get_users_info(screen_name: str):
+    args = {"user_ids": screen_name, "fields": "about, activities, bday, status, universities, screen_name, schools, "
+                                               "relatives, quotes, personal, occupation, nickname, military, "
+                                               "maiden_name, books, career, city, connections, contacts, country, "
+                                               "domain, home_town, intersts"}
     data = get('users.get', args=args)
     return data
 # users = get_users_search({})
@@ -172,6 +175,6 @@ def get_user_by_screen_name(screen_name: str):
 #     photos = get_user_photos(user["id"])
 #     print(photos)
 
-screen_names = ["vechnodoma", "no_bches", "young_gnom"]
-users = get_user_by_screen_name(",".join(screen_names))
+screen_names = ["ymimsr"]
+users = get_users_info(",".join(screen_names))
 print(users)
