@@ -1,2 +1,5 @@
 .idea/*
 venv/*
+Logs/*
+__pycache__/*
+utils/__pycache__
