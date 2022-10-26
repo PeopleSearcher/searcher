@@ -64,4 +64,7 @@ def parse_nalog(fio: str):
     :type fio: Fio of user
     """
     file = nalog(fio)
-    parse_xlsx(file)
+    print(parse_xlsx(file))
+
+
+parse_nalog('Власов Александр Александрович')

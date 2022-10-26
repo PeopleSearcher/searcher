@@ -1,0 +1,22 @@
+{
+  "fio": {
+    "Google": "google.com/search?q={fio}",
+    "Google Scholar": "https://scholar.google.com/scholar?q={fio}",
+    "Google News": "https://www.google.com/search?tbm=nws&q={fio}",
+    "Yandex": "https://www.yandex.ru/yandsearch?text={fio}"
+  },
+  "surname": {
+    "saverudata.info": "https://saverudata.info/#/?ln={surname}"
+  },
+  "nickname": {
+    "saverudata.info": "https://saverudata.info/#/?pkb={nickname}"
+  },
+
+  "phone": {
+    "saverudata.info": "https://saverudata.info/#/?n={phone}"
+  },
+
+  "email": {
+    "saverudata.info": "https://saverudata.info/#/?e={email}"
+  }
+}
