@@ -1,9 +1,22 @@
 {
   "fio": {
-    "Google": "google.com/search?q={field}",
-    "Google Scholar": "https://scholar.google.com/scholar?q={field}",
-    "Google News": "https://www.google.com/search?tbm=nws&q={field}",
-    "Yandex": "https://www.yandex.ru/yandsearch?text={field}"
+    "Google": {
+      "url": "https://google.com/search?q={field}",
+      "search": "li"},
+    "Google Scholar": {
+      "url": "https://scholar.google.com/scholar?q={field}",
+      "search": "div",
+      "class": "gs_r gs_or gs_scl"},
+    "Google News": {
+      "url": "https://www.google.com/search?tbm=nws&q={field}",
+      "class": "Gx5Zad fP1Qef xpd EtOod pkphOe",
+      "search": "div"
+    },
+    "Yandex": {
+      "url": "https://www.yandex.ru/yandsearch?text={field}&search_source=dzen_desktop_safe&lr=65",
+      "search": "li",
+      "class": "serp-item serp-item_card"
+    }
   },
   "surname": {
     "saverudata.info": "https://saverudata.info/#/?ln={field}"
