@@ -1,22 +1,22 @@
 {
   "fio": {
-    "Google": "google.com/search?q={fio}",
-    "Google Scholar": "https://scholar.google.com/scholar?q={fio}",
-    "Google News": "https://www.google.com/search?tbm=nws&q={fio}",
-    "Yandex": "https://www.yandex.ru/yandsearch?text={fio}"
+    "Google": "google.com/search?q={field}",
+    "Google Scholar": "https://scholar.google.com/scholar?q={field}",
+    "Google News": "https://www.google.com/search?tbm=nws&q={field}",
+    "Yandex": "https://www.yandex.ru/yandsearch?text={field}"
   },
   "surname": {
-    "saverudata.info": "https://saverudata.info/#/?ln={surname}"
+    "saverudata.info": "https://saverudata.info/#/?ln={field}"
   },
   "nickname": {
-    "saverudata.info": "https://saverudata.info/#/?pkb={nickname}"
+    "saverudata.info": "https://saverudata.info/#/?pkb={field}"
   },
 
   "phone": {
-    "saverudata.info": "https://saverudata.info/#/?n={phone}"
+    "saverudata.info": "https://saverudata.info/#/?n={field}"
   },
 
   "email": {
-    "saverudata.info": "https://saverudata.info/#/?e={email}"
+    "saverudata.info": "https://saverudata.info/#/?e={field}"
   }
 }
