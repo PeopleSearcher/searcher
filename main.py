@@ -31,6 +31,26 @@ class Person:
     maiden_name: (str, str)
 
 
+############################################################################
+#################################### VK ####################################
+############################################################################
+
+class VKUserEntity:
+    id: int
+    first_name: str
+    last_name: str
+    b_date: str
+    city: str
+    company: str
+    connections: str
+    university_name: str
+    home_town: str
+    maiden_name: str
+    relatives: list
+    sex: int
+    mobile_phone: str
+
+
 def vkapi_params(args=None):
     if not args:
         args = {}
