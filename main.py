@@ -17,6 +17,20 @@ PHOTOS_LOAD = 30
 PHOTOS_KEEP = 10
 
 
+class Person:
+    first_name: str
+    surname: str
+    patronymic: str
+    sex: (bool, str)
+    mobile_phone: (str, str)
+    b_date: (str, str)
+    city: (str, str)
+    company: (str, str)
+    university_name: (str, str)
+    home_town: (str, str)
+    maiden_name: (str, str)
+
+
 def vkapi_params(args=None):
     if not args:
         args = {}
@@ -170,6 +184,8 @@ def get_users_info(screen_name: str):
                                                "domain, home_town, intersts"}
     data = get('users.get', args=args)
     return data
+
+
 # users = get_users_search({})
 # for user in users:
 #     photos = get_user_photos(user["id"])
