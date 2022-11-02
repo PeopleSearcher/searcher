@@ -17,8 +17,9 @@ data = json.load(json_file)
 useragents = open('useragents.txt').read().splitlines()
 
 
-def make_request(search_type: str, search_data:str):
+def make_request(search_type: str, search_data: str):
     search_descriptions = data[search_type].values()
+    result = []
     for description in search_descriptions:
         if description["request"] == "request":
             user_agent = random.choice(useragents)
@@ -34,8 +35,7 @@ def make_request(search_type: str, search_data:str):
                 if 'class' in description:
                     cls = {"class": description["class"]}
                 answers = soup.findAll(description["search"], cls)
-                print(answers)
-                print("=" * 20)
+                result.append(answers)
         elif description["request"] == "selenium":
             options = webdriver.ChromeOptions()
             options.add_argument("--start-maximized")
@@ -46,7 +46,7 @@ def make_request(search_type: str, search_data:str):
                 (By.XPATH,
                  '//*[@id="root"]/main/article/div[6]/div/input')))
             driver.find_element(By.XPATH, '//*[@id="root"]/main/article/div[6]/div/input').click()
-            driver.find_element(By.XPATH, '//*[@id="root"]/main/article/div[6]/div/input').send_keys(search_data+"\n")
+            driver.find_element(By.XPATH, '//*[@id="root"]/main/article/div[6]/div/input').send_keys(search_data + "\n")
             persons = []
             while True:
                 WebDriverWait(driver, 20).until(EC.presence_of_element_located(
@@ -64,9 +64,5 @@ def make_request(search_type: str, search_data:str):
                     driver.find_element(By.XPATH, "//a[text()=' следующие 100 >']").click()
                 except TimeoutException:
                     break
-            print(persons)
-
-
-
-# read_json("file.json")
-make_request("fio", "Панфилов Вячеслав Александрович")
+            result.append(persons)
+    return result
