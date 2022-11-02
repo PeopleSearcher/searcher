@@ -4,6 +4,7 @@ import time
 
 from bs4 import BeautifulSoup as bs
 import requests
+from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
@@ -12,6 +13,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 import json
 
+load_dotenv("config.env")
+
+SELENIUM_DEBUG = os.getenv('SELENIUM_DEBUG')
 json_file = open("file.json")
 data = json.load(json_file)
 useragents = open('useragents.txt').read().splitlines()
@@ -38,7 +42,11 @@ def make_request(search_type: str, search_data: str):
                 result.append(answers)
         elif description["request"] == "selenium":
             options = webdriver.ChromeOptions()
-            options.add_argument("--start-maximized")
+            if SELENIUM_DEBUG == "False":
+                options.add_argument("--headless")
+
+            else:
+                options.add_argument("--start-maximized")
             driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
             # we take only surname because of saverudata.info
             driver.get(description["url"].format(field=search_data.split(" ")[0]))
