@@ -9,7 +9,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 import pandas as pd
+from dotenv import load_dotenv
 
+load_dotenv("config.env")
+
+SELENIUM_DEBUG = os.getenv('SELENIUM_DEBUG')
 down_dir = "download_files"
 
 
@@ -18,7 +22,11 @@ def nalog(fio: str):
 
     # define browser and set options
     options = webdriver.ChromeOptions()
-    options.add_argument("--start-maximized")
+    if SELENIUM_DEBUG == "False":
+        options.add_argument("--headless")
+
+    else:
+        options.add_argument("--start-maximized")
     prefs = {"profile.default_content_settings.popups": 0,
              "download.default_directory":
                  fr"{os.getcwd()}\download_files\\",  # IMPORTANT - ENDING SLASH V IMPORTANT
@@ -64,7 +72,4 @@ def parse_nalog(fio: str):
     :type fio: Fio of user
     """
     file = nalog(fio)
-    print(parse_xlsx(file))
-
-
-parse_nalog('Власов Александр Александрович')
+    return parse_xlsx(file)

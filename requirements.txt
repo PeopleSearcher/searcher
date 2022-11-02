@@ -5,3 +5,4 @@ pandas~=1.5.1
 packaging~=21.3
 openpyxl~=3.0.10
 beautifulsoup4~=4.11.1
+python-dotenv~=0.21.0
