@@ -13,6 +13,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 import json
 
+from html_parsers import parse_html_saverudata
+
 load_dotenv("config.env")
 
 SELENIUM_DEBUG = os.getenv('SELENIUM_DEBUG')
@@ -72,5 +74,6 @@ def make_request(search_type: str, search_data: str):
                     driver.find_element(By.XPATH, "//a[text()=' следующие 100 >']").click()
                 except TimeoutException:
                     break
+            persons = parse_html_saverudata(persons)
             result.append(persons)
     return result
