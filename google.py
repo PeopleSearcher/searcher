@@ -74,6 +74,6 @@ def make_request(search_type: str, search_data: str):
                     driver.find_element(By.XPATH, "//a[text()=' следующие 100 >']").click()
                 except TimeoutException:
                     break
-            parse_html_saverudata(persons)
+            persons = parse_html_saverudata(persons)
             result.append(persons)
     return result
