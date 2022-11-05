@@ -24,11 +24,11 @@ class Phone(BaseModel):
             divs = soup.findAll('div', {'class': "tel-info_result-label"})
             for div in divs:
                 if div.text == 'Страна : ':
-                    values["country"] = div.nextSibling.text.strip().encode("utf-8")
+                    values["country"] = div.nextSibling.text.strip()
                 if div.text == 'Регион : ':
-                    values['region'] = div.nextSibling.text.strip().encode("utf-8")
+                    values['region'] = div.nextSibling.text.strip()
                 if div.text == 'Оператор : ':
-                    values['operator'] = div.nextSibling.text.strip().encode("utf-8")
+                    values['operator'] = div.nextSibling.text.strip()
         return values
 
     @property
@@ -50,7 +50,3 @@ class Phone(BaseModel):
                    f"Оператор: {self.operator}\nКороткий номер: {self.number}"
         else:
             return f"Телефон: {self.phone_num}"
-
-
-
-

@@ -5,7 +5,7 @@ from models.data import Phone
 
 
 class PhoneTests(unittest.TestCase):
-    def full_test(self):
+    def test_full(self):
         phone_num = 79142900258
         expected = {"phone_num": "+79142900258", "country": "Россия", "region": "Республика Саха-Якутия", "operator": "MTC"}
         phone = Phone(phone_num=phone_num)
@@ -17,7 +17,6 @@ class PhoneTests(unittest.TestCase):
         expected = {"phone_num": "+79142900258", "country": "Россия", "region": "Республика Саха-Якутия",
                     "operator": "MTC"}
         phone = Phone(phone_num=phone_num)
-
         self.assertEqual(expected, json.loads(phone.json()))
 
 
