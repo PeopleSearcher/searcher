@@ -16,7 +16,7 @@ class Phone(BaseModel):
 
     @root_validator
     def parse_phone(cls, values):
-        values["phone_num"] = values["phone_num"].strip().replace(' ', '').replace('-', '')
+        values["phone_num"] = values["phone_num"].strip().replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
         values["phone_num"] = "+" + values["phone_num"] if values["phone_num"][0] != "+" and len(values["phone_num"]) >= 11 else values["phone_num"]
         if len(values["phone_num"]) == 12:
             response = requests.get(f"https://fincalculator.ru/telefon/region-po-nomeru/{values['phone_num']}")
@@ -24,11 +24,11 @@ class Phone(BaseModel):
             divs = soup.findAll('div', {'class': "tel-info_result-label"})
             for div in divs:
                 if div.text == 'Страна : ':
-                    values["country"] = div.nextSibling.text.strip()
+                    values["country"] = div.nextSibling.text.strip().encode("utf-8")
                 if div.text == 'Регион : ':
-                    values['region'] = div.nextSibling.text.strip()
+                    values['region'] = div.nextSibling.text.strip().encode("utf-8")
                 if div.text == 'Оператор : ':
-                    values['operator'] = div.nextSibling.text.strip()
+                    values['operator'] = div.nextSibling.text.strip().encode("utf-8")
         return values
 
     @property
