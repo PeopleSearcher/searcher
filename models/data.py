@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 useragents = open('../useragents.txt').read().splitlines()
 
+
 class Phone(BaseModel):
     """Class for phone number, phones numbers in Russia typically consist of 11 digits — the 1-digit (or all digits
     not considering the area code and telephone number)  country code, a 3-digit area code and a 7-digit telephone
