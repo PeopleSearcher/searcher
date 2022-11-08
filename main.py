@@ -1,6 +1,3 @@
-import vk.vk as vk
-
-
 class Person:
     first_name: str
     surname: str
@@ -15,6 +12,6 @@ class Person:
     maiden_name: (str, str)
 
 
-screen_names = ["ymimsr"]
-users = vk.get_users_info(",".join(screen_names))
-print(users)
+# screen_names = ["ymimsr"]
+# users = vk.get_users_info(",".join(screen_names))
+# print(users)

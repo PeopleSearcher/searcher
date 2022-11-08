@@ -5,12 +5,13 @@ from os.path import basename
 
 import requests
 from dataclasses import dataclass
+from pydantic import BaseModel, ValidationError, Field, validator
 
 from utils.logger import setup_logger, log_er
 
 BASE_VK_URL = 'https://api.vk.com/method/'
 
-#setup_logger(__name__)
+setup_logger(__name__)
 printit = False
 SZ_MN = 400
 SZ_MX = 700
@@ -18,26 +19,49 @@ PHOTOS_LOAD = 30
 PHOTOS_KEEP = 10
 
 
-@dataclass(init=True, repr=True, frozen=True)
-class VKUserEntity:
+class City(BaseModel):
+    id: int
+    title: str
+
+
+class University(BaseModel):
+    id: int
+    city_id = Field(default=-1, alias="city")
+    country_id = Field(default=-1, alias="country")
+    graduation: int = None
+    name: str = None
+
+
+class School(BaseModel):
+    id: int
+    city_id = Field(default=-1, alias="city")
+    country_id = Field(default=-1, alias="country")
+    year_from: int = None
+    year_to: int = None
+    name: str = None
+
+
+# @dataclass(init=True, repr=True, frozen=True)
+class VKUserEntity(BaseModel):
     id: int
     first_name: str
     last_name: str
-    b_date: str
-    city: str
-    company: str
-    connections: str
-    universities: list
-    home_town: str
-    maiden_name: str
-    sex: int
-    mobile_phone: str
+    b_date = Field(default="", alias="bdate")
+    city: City = None
+    company = Field(default="")
+    connections: dict = None
+    universities: list[University] = []
+    schools: list[School] = []
+    home_town: str = None
+    maiden_name: str = None
+    sex: int = None
+    mobile_phone: int = None
 
 
 def vkapi_params(args=None):
     if not args:
         args = {}
-    args['access_token'] = "vk1.a.DSG3OUhKt3e7iZSU6GqIj6B85xBev6Ce2masE_Aar7qeENXrSsUO7ibhjpqq6KOSTF1cigu_falES-reF6xis0JXe67zYMObPVxYGjHUA5O_koIsgE_EFEoXxquEmwrhzf7BU7N_lN2C_WMF4UThz1ZtWoi0ddLjPzA6ldfif8SuI42HR799muINTSqMO7Ev"
+    args['access_token'] = "vk1.a.TXQbXslZNhPdBXNWP8w357P3Uk6VGrIAiJmQzHzjBpX-U1gr2PKz2ykR5RAGHTPXz89hcDFa1KkuUQFj9YJYJj2-Vd089zkZ1QLp6I2WZ6u0_eK9IwN5HTAqO98gtwq6BsDnifFJjWu5NL3-rWtj-5NU9gt1VX494uB720e7uMiBtFx9mxjKeP91LHikX9HR"
     args['v'] = '5.131'
     args['lang'] = 'ru'
     return args
@@ -144,36 +168,39 @@ def parse_vk_search(response):
     vk_users = []
 
     for item in response:
-        vk_id = item['id']
-        first_name = item['first_name']
-        last_name = item['last_name']
-        b_date = '' if not ('bdate' in item) else item['bdate']
-        city = '' if not ('city' in item) else item['city']
-        company = '' if not ('company' in item) else item['company']
-        connections = '' if not ('connections' in item) else item['connections']
-        universities = []
-        if 'universities' in item:
-            for university in item['universities']:
-                universities.append(university['name'])
-        home_town = '' if not ('hometown' in item) else item['home_town']
-        maiden_name = '' if not ('maiden_name' in item) else item['maiden_name']
-        sex = -1 if not ('sex' in item) else item['sex']
-        mobile_phone = '' if not ('mobile_phone' in item) else item['mobile_phone']
+        # vk_id = item['id']
+        # first_name = item['first_name']
+        # last_name = item['last_name']
+        # b_date = '' if not ('bdate' in item) else item['bdate']
+        # city = '' if not ('city' in item) else item['city']
+        # company = '' if not ('company' in item) else item['company']
+        # connections = '' if not ('connections' in item) else item['connections']
+        # universities = []
+        # if 'universities' in item:
+        #     for university in item['universities']:
+        #         universities.append(university['name'])
+        # home_town = '' if not ('hometown' in item) else item['home_town']
+        # maiden_name = '' if not ('maiden_name' in item) else item['maiden_name']
+        # sex = -1 if not ('sex' in item) else item['sex']
+        # mobile_phone = '' if not ('mobile_phone' in item) else item['mobile_phone']
+        #
+        # vk_user = VKUserEntity(
+        #     vk_id,
+        #     first_name,
+        #     last_name,
+        #     b_date,
+        #     city,
+        #     company,
+        #     connections,
+        #     universities,
+        #     home_town,
+        #     maiden_name,
+        #     sex,
+        #     mobile_phone
+        # )
 
-        vk_user = VKUserEntity(
-            vk_id,
-            first_name,
-            last_name,
-            b_date,
-            city,
-            company,
-            connections,
-            universities,
-            home_town,
-            maiden_name,
-            sex,
-            mobile_phone
-        )
+        raw_json_user = json.dumps(item)
+        vk_user = VKUserEntity.parse_raw(raw_json_user)
 
         vk_users.append(vk_user)
 
