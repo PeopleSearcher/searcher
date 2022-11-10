@@ -31,7 +31,7 @@ class Phone(BaseModel):
                 options = webdriver.ChromeOptions()
                 options.add_argument("--headless")
                 driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
-                driver.get(f"https://phonenum.info/phone/{values['phone_num'][1:]}")
+                driver.get(f"https://phonenum.info/phone/{values['phone_num'][1:]}") # pass phone number without +
                 html = driver.page_source
                 driver.quit()
                 soup = bs(html, features='html.parser')
